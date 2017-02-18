@@ -21,11 +21,7 @@ public class Main {
         
         post("/", (req, res) -> {
             HashMap<String, String> data = new HashMap();
-            if (req.queryParams("newuser") != null) {
-                return new ModelAndView(data, "createuser");
-            } else if (req.queryParams("login") != null) {
-                return new ModelAndView(data, "login");
-            }
+           
 
             return new ModelAndView(data, "login");
         });
