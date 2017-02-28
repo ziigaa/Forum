@@ -12,18 +12,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao implements Dao<User, Integer> {
+/**
+ *
+ * @author Joonas
+ */
+public class CategoryDao {
 
     private Database database;
 
-    public UserDao(Database database) {
+    public CategoryDao(Database database) {
         this.database = database;
     }
 
-    @Override
-    public User findOne(Integer key) throws SQLException {
+    public Category findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Categories WHERE id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -32,11 +35,11 @@ public class UserDao implements Dao<User, Integer> {
             return null;
         }
 
-        Integer id = rs.getInt("user_id");
+        Integer id = rs.getInt("cat_id");
         String name = rs.getString("name");
-        String password = rs.getString("password");
+        String desc = rs.getString("description");
 
-        User o = new User(id, name, password);
+        Category o = new Category(id, name, desc);
 
         rs.close();
         stmt.close();
@@ -45,31 +48,29 @@ public class UserDao implements Dao<User, Integer> {
         return o;
     }
 
-    @Override
-    public List<User> findAll() throws SQLException {
-
+    public List<Category> findAll() throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Categories");
 
         ResultSet rs = stmt.executeQuery();
-        List<User> users = new ArrayList<>();
+        List<Category> cats = new ArrayList<>();
         while (rs.next()) {
-            Integer id = rs.getInt("user_id");
+            Integer id = rs.getInt("cat_id");
             String name = rs.getString("name");
-            String password = rs.getString("password");
-            
-            users.add(new User(id, name, password));
+            String desc = rs.getString("description");
+
+            cats.add(new Category(id, name, desc));
         }
 
         rs.close();
         stmt.close();
         connection.close();
 
-        return users;
+        return cats;
     }
 
-    @Override
     public void delete(Integer key) throws SQLException {
-        database.update("DELETE FROM Users WHERE user_id = ?", key);
+        database.update("DELETE FROM Categories WHERE cat_id = ?", key);
     }
+
 }

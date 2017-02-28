@@ -25,16 +25,14 @@ public class Main {
         //Class.forName("org.sqlite.JDBC");
 
         Database database = new Database("jdbc:sqlite:./lol2.db");
-
         database.init();
-
         UserDao userDao = new UserDao(database);
 
         ArrayList<User> userz = new ArrayList<>();
 
         userz.addAll(userDao.findAll());
         for (User i : userz) {
-            System.out.println(i.getId() + "\t" + i.getNimi() + "\t" + i.getPassword());
+            System.out.println(i.getId() + "\t" + i.getName() + "\t" + i.getPassword());
         }
 
         ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
