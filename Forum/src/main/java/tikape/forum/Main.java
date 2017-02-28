@@ -10,33 +10,33 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-import org.sqlite.JDBC;
-    import org.sqlite.SQLiteDataSource;
-    import org.sqlite.SQLiteJDBCLoader;
+//import org.sqlite.JDBC;
+//import org.sqlite.SQLiteDataSource;
+//import org.sqlite.SQLiteJDBCLoader;
+
 /**
  *
- * @author Joonas <>
+ * @author Joonas
  */
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Class.forName("org.sqlite.JDBC");
-        
+        //Class.forName("org.sqlite.JDBC");
+
         Database database = new Database("jdbc:sqlite:./lol2.db");
-        
+
         database.init();
 
         UserDao userDao = new UserDao(database);
-        
+
         ArrayList<User> userz = new ArrayList<>();
-        
+
         userz.addAll(userDao.findAll());
         for (User i : userz) {
             System.out.println(i.getId() + "\t" + i.getNimi() + "\t" + i.getPassword());
         }
-        
-        
+
         ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
 
         post("/", (req, res) -> {

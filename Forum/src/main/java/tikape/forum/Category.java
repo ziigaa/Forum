@@ -5,16 +5,20 @@
  */
 package tikape.forum;
 
-public class User {
+/**
+ *
+ * @author Joonas
+ */
+public class Category {
 
-    private Integer id;
+    private int id;
     private String name;
-    private String password;
+    private String description;
 
-    public User(Integer id, String name, String password) {
+    public Category(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.password = password;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -33,12 +37,11 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
 }
