@@ -5,11 +5,14 @@
  */
 package tikape.forum;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-
+import org.sqlite.JDBC;
+    import org.sqlite.SQLiteDataSource;
+    import org.sqlite.SQLiteJDBCLoader;
 /**
  *
  * @author Joonas <>
@@ -17,11 +20,27 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
+
+        Class.forName("org.sqlite.JDBC");
         
+        Database database = new Database("jdbc:sqlite:./lol2.db");
+        
+        database.init();
+
+        UserDao userDao = new UserDao(database);
+        
+        ArrayList<User> userz = new ArrayList<>();
+        
+        userz.addAll(userDao.findAll());
+        for (User i : userz) {
+            System.out.println(i.getId() + "\t" + i.getNimi() + "\t" + i.getPassword());
+        }
+        
+        
+        ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
+
         post("/", (req, res) -> {
             HashMap<String, String> data = new HashMap();
-           
 
             return new ModelAndView(data, "login");
         });

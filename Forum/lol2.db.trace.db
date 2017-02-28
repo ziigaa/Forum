@@ -1,0 +1,3 @@
+2017-02-28 13:37:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "Categories" not found; SQL statement:
+INSERT INTO "Categories" VALUES(1,'test','Troll training!'); [42102-190]
