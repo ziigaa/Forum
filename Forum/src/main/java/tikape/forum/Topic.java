@@ -33,11 +33,11 @@ public class Topic {
         this.id = id;
     }
 
-    public String getMessage() {
+    public String getSubject() {
         return subject;
     }
 
-    public void setMessage(String subject) {
+    public void setSubject(String subject) {
         this.subject = subject;
     }
 

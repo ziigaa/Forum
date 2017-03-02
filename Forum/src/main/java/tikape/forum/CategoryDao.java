@@ -26,7 +26,7 @@ public class CategoryDao {
 
     public Category findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Categories WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Categories WHERE cat_id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();

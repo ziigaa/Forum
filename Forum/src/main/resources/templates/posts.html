@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Troll's Paradise - Posts</title>
+    </head>
+
+    <body>
+
+        <form method="post" action="">
+            <pre>
+        <ol>
+            <li th:each="post : ${posts}">
+                <span th:text="${post.user.name}">user</span> posted @ <span th:text="${post.time}">time</span>
+                <span th:text="${post.message}">message</span>
+            </li>
+        </ol>
+<button id="answer" value="answer" name="answer">Answer</button>
+            </pre>
+        </form>
+    </body>
+</html>

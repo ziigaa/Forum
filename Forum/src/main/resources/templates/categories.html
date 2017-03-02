@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
     <head>
         <title>Troll's Paradise - Categories</title>
     </head>
+
     <body>
-        <div>TODO write content</div>
+
+        <form method="post" action="">
+            <pre>
+        <ol>
+            <li th:each="category : ${categories}">
+                <button id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>   (<span th:text="${category.description}"></span>)</button>
+            </li>
+        </ol>
+            </pre>
+        </form>
     </body>
 </html>

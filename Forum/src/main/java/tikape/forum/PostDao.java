@@ -66,7 +66,35 @@ public class PostDao {
             Integer id = rs.getInt("post_id");
             String message = rs.getString("message");
             String dateTime = rs.getString("time");
-            
+
+            UserDao uTemp = new UserDao(database);
+            User u = uTemp.findOne(Integer.parseInt(rs.getString("user_id")));
+
+            TopicDao tTemp = new TopicDao(database);
+            Topic t = tTemp.findOne(Integer.parseInt(rs.getString("topic_id")));
+
+            posts.add(new Post(id, message, dateTime, u, t));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return posts;
+    }
+
+    public List<Post> findAllFromTopic(int topic) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Posts WHERE topic_id = ?");
+        stmt.setObject(1, topic);
+
+        ResultSet rs = stmt.executeQuery();
+        List<Post> posts = new ArrayList<>();
+        while (rs.next()) {
+            Integer id = rs.getInt("post_id");
+            String message = rs.getString("message");
+            String dateTime = rs.getString("time");
+
             UserDao uTemp = new UserDao(database);
             User u = uTemp.findOne(Integer.parseInt(rs.getString("user_id")));
 

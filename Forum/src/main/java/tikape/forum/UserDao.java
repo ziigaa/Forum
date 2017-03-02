@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao implements Dao<User, Integer> {
+public class UserDao {
 
     private Database database;
 
@@ -20,10 +20,9 @@ public class UserDao implements Dao<User, Integer> {
         this.database = database;
     }
 
-    @Override
     public User findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE user_id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();
@@ -45,7 +44,30 @@ public class UserDao implements Dao<User, Integer> {
         return o;
     }
 
-    @Override
+        public User findOneByName(String key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Users WHERE name = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        boolean hasOne = rs.next();
+        if (!hasOne) {
+            return null;
+        }
+
+        Integer id = rs.getInt("user_id");
+        String name = rs.getString("name");
+        String password = rs.getString("password");
+
+        User o = new User(id, name, password);
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
+    }
+    
     public List<User> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
@@ -57,7 +79,7 @@ public class UserDao implements Dao<User, Integer> {
             Integer id = rs.getInt("user_id");
             String name = rs.getString("name");
             String password = rs.getString("password");
-            
+
             users.add(new User(id, name, password));
         }
 
@@ -68,8 +90,11 @@ public class UserDao implements Dao<User, Integer> {
         return users;
     }
 
-    @Override
     public void delete(Integer key) throws SQLException {
         database.update("DELETE FROM Users WHERE user_id = ?", key);
+    }
+
+    public void addUser(String name, String password) throws SQLException {
+        database.update("INSERT INTO \"Users\" VALUES(null,'" + name + "','" + password + "');");
     }
 }

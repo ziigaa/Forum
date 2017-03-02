@@ -13,14 +13,14 @@ public class Post {
 
     private int id;
     private String message;
-    private String dateTime;
+    private String time;
     private User user;
     private Topic topic;
 
-    public Post(Integer id, String message, String dateTime, User user, Topic topic) {
+    public Post(Integer id, String message, String time, User user, Topic topic) {
         this.id = id;
         this.message = message;
-        this.dateTime = dateTime;
+        this.time = time;
         this.user = user;
         this.topic = topic;
     }
@@ -41,12 +41,12 @@ public class Post {
         this.message = message;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getTime() {
+        return time;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setTime(String dateTime) {
+        this.time = dateTime;
     }
     
         public User getUser() {
