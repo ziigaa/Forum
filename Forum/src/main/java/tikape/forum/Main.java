@@ -292,6 +292,35 @@ public class Main {
             return new ModelAndView(data, "topics");
         }, engine);
 
+        post("topics/:cid/posts/:tid", (req, res) -> {
+            //System.out.println(req.toString());
+            HashMap<String, String> data = new HashMap();
+            System.out.println("goes to post@createtopic");
+
+            data.putAll(req.cookies());
+
+            String catId = req.params(":cid");
+            String topicId = req.params(":tid");
+
+            if (catId == null || topicId == null) {
+                res.redirect("createtopic/:cid");
+                return "";
+            }
+
+            System.out.println("catId string: " + catId);
+            System.out.println("topicId string: " + topicId);
+
+            if (data.containsKey("name")) {
+                String name = data.get("name");
+                int cateId = Integer.parseInt(req.params(":cid"));
+                User user = userDao.findOneByName(name);
+                Category category = catDao.findOne(cateId);
+                toDao.addTopic(subject, user, category);
+            }
+
+            return "";
+        });
+
         get("/createtopic/:cid", (req, res) -> {
             HashMap<String, String> data = new HashMap();
 
@@ -330,7 +359,7 @@ public class Main {
 
             if (data.containsKey("name")) {
                 String name = data.get("name");
-                int catId = Integer.parseInt(req.queryParams(":cid"));
+                int catId = Integer.parseInt(req.params(":cid"));
                 User user = userDao.findOneByName(name);
                 Category category = catDao.findOne(catId);
                 toDao.addTopic(subject, user, category);
