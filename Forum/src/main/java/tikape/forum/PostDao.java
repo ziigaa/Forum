@@ -115,4 +115,10 @@ public class PostDao {
         database.update("DELETE FROM Posts WHERE post_id = ?", key);
     }
 
+    public void addPost(String message, User user, Topic topic) throws SQLException {
+        Integer topicId = topic.getId();
+        Integer userId = user.getId();
+        database.update("INSERT INTO \"Posts\" VALUES(null,'" + message + "', datetime('now'),'" + topicId + "','+" + userId + "');");
+    }
+
 }

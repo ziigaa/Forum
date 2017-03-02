@@ -280,8 +280,8 @@ public class Main {
                     System.out.println("still logged in @posts");
                     
                     List<Post> list = new ArrayList<>();
-                    
-                    list.addAll(poDao.findAllFromTopic(Integer.parseInt(req.params(":cid"))));
+                    //System.out.println("@posts : " + req.params(":cid"));
+                    list.addAll(poDao.findAllFromTopic(Integer.parseInt(req.params(":tid"))));
                     
                     for (Post p : list) {
                         System.out.println(p.getMessage());
@@ -315,15 +315,17 @@ public class Main {
                 return "";
             }
             
+            String message = req.queryParams("posttext");
+            
             System.out.println("catId string: " + catId);
             System.out.println("topicId string: " + topicId);
             
-            if (data.containsKey("name")) {
+            if (data.containsKey("name") && message != null) {
                 String name = data.get("name");
-                int cateId = Integer.parseInt(req.params(":cid"));
                 User user = userDao.findOneByName(name);
-                Category category = catDao.findOne(cateId);
-                //toDao.addTopic(subject, user, category);
+                Topic topic = toDao.findOne(Integer.parseInt(topicId));
+                poDao.addPost(message, user, topic);
+                res.redirect("/topics/" + catId + "/posts/" + topicId);
             }
             
             return "";
