@@ -6,11 +6,17 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Troll's Paradise - Create a new topic</title>
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Create a new topic</h1>
+
+        <form class="form-horizontal" action='' method="POST">
+            <label for="subject">Subject</label>:
+            <input type="text" style="width:50%" id="subject" name="subject" autofocus="autofocus" /> <br /><br />
+            <label for="post">Post</label>:
+            <textarea style="width:50%" name="post" id="post"></textarea> <br /><br />
+            <input type="submit" value="SUBMIT TO SERVER" />
+        </form>
     </body>
 </html>

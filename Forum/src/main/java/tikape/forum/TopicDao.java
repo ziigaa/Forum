@@ -116,5 +116,11 @@ public class TopicDao {
     public void delete(Integer key) throws SQLException {
         database.update("DELETE FROM Topics WHERE topic_id = ?", key);
     }
-
+    
+    public void addTopic(String subject, User user, Category category) throws SQLException {
+        Integer catId = category.getId();
+        Integer userId = user.getId();
+        database.update("INSERT INTO \"Topics\" VALUES(null,'" + subject + "', datetime('now')," + catId + "','+" + userId + "');");
+    }
+    
 }

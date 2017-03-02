@@ -5,21 +5,15 @@
  */
 package tikape.forum;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.servlet.http.Cookie;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import static spark.Spark.*;
-import spark.TemplateViewRoute;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-//import org.sqlite.JDBC;
-//import org.sqlite.SQLiteDataSource;
-//import org.sqlite.SQLiteJDBCLoader;
 
 /**
  *
@@ -32,7 +26,10 @@ public class Main {
         //Class.forName("org.sqlite.JDBC");
         Database database = new Database("jdbc:sqlite:./lol2.db");
         database.init();
-        int catId = 0;
+        UserDao userDao = new UserDao(database);
+        CategoryDao catDao = new CategoryDao(database);
+        TopicDao toDao = new TopicDao(database);
+        PostDao poDao = new PostDao(database);
         ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
 
         post("/", new Route() {
@@ -69,13 +66,11 @@ public class Main {
         }, engine);
 
         post("/createuser", (req, res) -> {
-            //System.out.println(req.toString());
+
             HashMap<String, String> data = new HashMap();
             String username = req.queryParams("username");
             String password = req.queryParams("password");
             System.out.println(username + " " + password);
-
-            UserDao userDao = new UserDao(database);
 
             User i = userDao.findOneByName(username);
 
@@ -88,22 +83,6 @@ public class Main {
             }
 
             return "";
-
-//            ArrayList<User> userz = new ArrayList<>();
-//
-//            userz.addAll(userDao.findAll());
-//
-//            for (User i : userz) {
-//                if (i.getName().toUpperCase().equals(username.toUpperCase())) {
-//                    System.out.println("User already exists u fucking noob!!!");
-//                    return "User already exists u fucking noob!!!";
-//                }
-//                System.out.println(i.getId() + "\t" + i.getName() + "\t" + i.getPassword());
-//            }
-//
-//            userDao.addUser(username, password);
-//            res.redirect("/login");
-            //return new ModelAndView(data, "login");
         });
 
         get("/login", (req, res) -> {
@@ -113,13 +92,11 @@ public class Main {
         }, engine);
 
         post("/login", (req, res) -> {
-            //System.out.println(req.toString());
             HashMap<String, String> data = new HashMap();
             String username = req.queryParams("username");
             String password = req.queryParams("password");
             System.out.println(username + " " + password);
 
-            UserDao userDao = new UserDao(database);
             User i = userDao.findOneByName(username);
 
             if (i != null) {
@@ -128,8 +105,6 @@ public class Main {
                     res.cookie("name", username);
                     res.redirect("/main");
                 } else {
-//                    PrintWriter out = res.raw().getWriter();
-//                    out.print("Wrong password HAHAHAHAHAHAHAHAHAHAHA!!!!!!!!!!!!!!!!!!!!!!!111111111111");
                     return "Wrong password HAHAHAHAHAHAHAHAHAHAHA!!!!!!!!!!!!!!!!!!!!!!!111111111111";
                 }
             } else {
@@ -137,18 +112,6 @@ public class Main {
             }
 
             return new ModelAndView(data, "main");
-//            ArrayList<User> userz = new ArrayList<>();
-//
-//            userz.addAll(userDao.findAll());
-//            for (User i : userz) {
-//                if (i.getName().toUpperCase().equals(username.toUpperCase())) {
-//                    data.put("string", i.getName());
-//                    //res.redirect("/main");
-//                    return new ModelAndView(data, "main");
-//                }
-//                System.out.println(i.getId() + "\t" + i.getName() + "\t" + i.getPassword());
-//            }
-//            return "Lol noob you're a nobody, piss off!! HAHAHAHAHAHAHAHA!!!!!";
         });
 
         get("/main", (req, res) -> {
@@ -170,7 +133,7 @@ public class Main {
         }, engine);
 
         post("/main", (req, res) -> {
-            //System.out.println(req.toString());
+
             HashMap<String, String> data = new HashMap();
             String catz = req.queryParams("catz");
 
@@ -193,14 +156,13 @@ public class Main {
                     System.out.println("still logged in @categories");
 
                     List<Category> list = new ArrayList<>();
-                    CategoryDao catDao = new CategoryDao(database);
 
                     list.addAll(catDao.findAll());
 
                     for (Category c : list) {
                         System.out.println(c.getName());
                     }
-                    //ArrayList<String> namesList = new ArrayList<>();
+
                     HashMap<String, Object> catz = new HashMap<>();
                     catz.put("categories", list);
                     System.out.println("right place");
@@ -215,7 +177,7 @@ public class Main {
         }, engine);
 
         post("/categories", (req, res) -> {
-            //System.out.println(req.toString());
+
             HashMap<String, String> data = new HashMap();
             System.out.println("goes to post");
 
@@ -234,13 +196,13 @@ public class Main {
             return "";
         });
 
-        get("/topics/:id", (req, res) -> {
+        get("/topics/:cid", (req, res) -> {
             HashMap<String, String> data = new HashMap();
             HashMap<String, String> cat = new HashMap<>();
 
             cat.put("category", req.queryParams("category"));
 
-            System.out.println(req.params(":id"));
+            System.out.println(req.params(":cid"));
 
             data.putAll(req.cookies());
             if (data.containsKey("name")) {
@@ -249,9 +211,8 @@ public class Main {
                     System.out.println("still logged in @topics");
 
                     List<Topic> list = new ArrayList<>();
-                    TopicDao toDao = new TopicDao(database);
 
-                    list.addAll(toDao.findAllFromCategory(Integer.parseInt(req.params(":id"))));
+                    list.addAll(toDao.findAllFromCategory(Integer.parseInt(req.params(":cid"))));
 
                     for (Topic t : list) {
                         System.out.println(t.getSubject());
@@ -270,12 +231,19 @@ public class Main {
             return new ModelAndView(data, "topics");
         }, engine);
 
-        post("/topics/:id", (req, res) -> {
-            //System.out.println(req.toString());
+        post("/topics/:cid", (req, res) -> {
+
             HashMap<String, String> data = new HashMap();
             System.out.println("goes to post@topicsID");
 
             String tpz = req.queryParams("topic");
+
+            String catId = req.params(":cid");
+
+            if (tpz == null && req.queryParams("newuser") != null) {
+                res.redirect("createtopic/:cid");
+                return "";
+            }
 
             System.out.println("tpz string: " + tpz);
 
@@ -283,19 +251,19 @@ public class Main {
                 System.out.println(tpz);
                 data.put("topics", tpz);
 
-                res.redirect("/posts/" + tpz);
+                res.redirect("/topics/" + catId + "/posts/" + tpz);
                 return new ModelAndView(data, "posts");
             }
 
             return "";
         });
 
-        get("/posts/:id", (req, res) -> {
+        get("topics/:cid/posts/:tid", (req, res) -> {
             HashMap<String, String> data = new HashMap();
             HashMap<String, String> topic = new HashMap<>();
             topic.put("topic", req.queryParams("topic"));
 
-            System.out.println(req.params(":id"));
+            System.out.println(req.params(":cid"));
 
             data.putAll(req.cookies());
             if (data.containsKey("name")) {
@@ -304,9 +272,8 @@ public class Main {
                     System.out.println("still logged in @posts");
 
                     List<Post> list = new ArrayList<>();
-                    PostDao poDao = new PostDao(database);
 
-                    list.addAll(poDao.findAllFromTopic(Integer.parseInt(req.params(":id"))));
+                    list.addAll(poDao.findAllFromTopic(Integer.parseInt(req.params(":cid"))));
 
                     for (Post p : list) {
                         System.out.println(p.getMessage());
@@ -324,5 +291,52 @@ public class Main {
             System.out.println("goeeesss herelol");
             return new ModelAndView(data, "topics");
         }, engine);
+
+        get("/createtopic/:cid", (req, res) -> {
+            HashMap<String, String> data = new HashMap();
+
+            data.putAll(req.cookies());
+            if (data.containsKey("name")) {
+                String name = data.get("name");
+                if (!name.equals("") || name != null) {
+                    System.out.println("logged in@createtopic");
+
+                }
+            } else {
+                System.out.println("no login");
+                res.redirect("/login");
+            }
+
+            return new ModelAndView(data, "createtopic");
+        }, engine);
+
+        post("/createtopic/:cid", (req, res) -> {
+            //System.out.println(req.toString());
+            HashMap<String, String> data = new HashMap();
+            System.out.println("goes to post@createtopic");
+
+            data.putAll(req.cookies());
+
+            String subject = req.queryParams("subject");
+            String message = req.queryParams("post");
+
+            if (message == null || subject == null) {
+                res.redirect("createtopic/:cid");
+                return "";
+            }
+
+            System.out.println("message string: " + message);
+            System.out.println("subject string: " + subject);
+
+            if (data.containsKey("name")) {
+                String name = data.get("name");
+                int catId = Integer.parseInt(req.queryParams(":cid"));
+                User user = userDao.findOneByName(name);
+                Category category = catDao.findOne(catId);
+                toDao.addTopic(subject, user, category);
+            }
+
+            return "";
+        });
     }
 }
