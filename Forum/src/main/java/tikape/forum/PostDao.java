@@ -26,7 +26,7 @@ public class PostDao {
 
     public Post findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Posts WHERE id = ?");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Posts WHERE post_id = ?");
         stmt.setObject(1, key);
 
         ResultSet rs = stmt.executeQuery();

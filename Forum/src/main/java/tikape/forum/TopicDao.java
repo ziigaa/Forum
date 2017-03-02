@@ -120,7 +120,7 @@ public class TopicDao {
     public void addTopic(String subject, User user, Category category) throws SQLException {
         Integer catId = category.getId();
         Integer userId = user.getId();
-        database.update("INSERT INTO \"Topics\" VALUES(null,'" + subject + "', datetime('now')," + catId + "','+" + userId + "');");
+        database.update("INSERT INTO \"Topics\" VALUES(null,'" + subject + "', datetime('now'),'" + catId + "','+" + userId + "');");
     }
     
 }
