@@ -182,6 +182,7 @@ public class Main {
                     List<Topic> list = new ArrayList<>();
                     list.addAll(toDao.findAllFromCategory(Integer.parseInt(req.params(":cid"))));
                     HashMap<String, Object> topz = new HashMap<>();
+                    topz.put("topics", list);
                     return new ModelAndView(topz, "topics");
                 }
             } else {
