@@ -68,6 +68,7 @@ public class CategoryDao {
 
         return cats;
     }
+    
 
     public void delete(Integer key) throws SQLException {
         database.update("DELETE FROM Categories WHERE cat_id = ?", key);

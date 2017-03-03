@@ -107,7 +107,7 @@ public class Main {
         
         get("/main", (req, res) -> {
             HashMap<String, String> data = new HashMap();
-            
+            //turha if lause alla?
             data.putAll(req.cookies());
             if (data.containsKey("name")) {
                 String name = data.get("name");
@@ -124,10 +124,14 @@ public class Main {
             
             HashMap<String, String> data = new HashMap();
             String catz = req.queryParams("catz");
+            String logout = req.queryParams("logout");
             
-            if (catz == null == false) {
+            if (catz != null) {
                 res.redirect("/categories");
                 return new ModelAndView(data, "categories");
+            } else if (logout != null) {
+                res.cookie("name", null, 0);
+                res.redirect("/login");
             }
             
             return "";
@@ -143,6 +147,9 @@ public class Main {
                     List<Category> list = new ArrayList<>();
                     
                     list.addAll(catDao.findAll());
+                    //muutos
+                    
+                    //muustos
 
                     HashMap<String, Object> catz = new HashMap<>();
                     catz.put("categories", list);
@@ -158,11 +165,15 @@ public class Main {
             
             HashMap<String, String> data = new HashMap();
             String catz = req.queryParams("category");
+            String logout = req.queryParams("logout");
             
             if (catz == null == false) {
                 data.put("category", catz);
                 res.redirect("/topics/" + catz);
                 return new ModelAndView(data, "topics");
+            } else if (logout != null) {
+                res.cookie("name", null, 0);
+                res.redirect("/login");
             }
             
             return "";
@@ -196,6 +207,7 @@ public class Main {
             HashMap<String, String> data = new HashMap();
             String tpz = req.queryParams("topic");
             String catId = req.params(":cid");
+            String logout = req.queryParams("logout");
             
             if (tpz == null && req.queryParams("newtopic") != null) {
 
@@ -215,6 +227,9 @@ public class Main {
                 data.put("topics", tpz);
                 res.redirect("/topics/" + catId + "/posts/" + tpz);
                 return new ModelAndView(data, "posts");
+            } else if (logout != null) {
+                res.cookie("name", null, 0);
+                res.redirect("/login");
             }
             
             return "";
@@ -244,7 +259,7 @@ public class Main {
         
         post("topics/:cid/posts/:tid", (req, res) -> {
             HashMap<String, String> data = new HashMap();
-            
+            String logout = req.queryParams("logout");
             data.putAll(req.cookies());
             
             String catId = req.params(":cid");
@@ -253,6 +268,9 @@ public class Main {
             if (catId == null || topicId == null) {
                 res.redirect("createtopic/:cid");
                 return "";
+            } else if (logout != null) {
+                res.cookie("name", null, 0);
+                res.redirect("/login");
             }
             
             String message = req.queryParams("posttext");

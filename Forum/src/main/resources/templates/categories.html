@@ -11,9 +11,11 @@
         <ol>
             <li th:each="category : ${categories}">
                 <button id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>   (<span th:text="${category.description}"></span>)</button>
+                <h1>WELCOME</h1><h1 th:text="${name}">The noob</h1><h1>YOU NOOB</h1>
             </li>
         </ol>
             </pre>
+            <button id="logout" value="logout" name="logout">Logout</button>
         </form>
     </body>
 </html>

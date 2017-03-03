@@ -23,7 +23,7 @@ public class Database {
 
     public void init() {
         List<String> lauseet = sqliteLauseet();
-
+        System.out.println(lauseet);
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
@@ -49,7 +49,10 @@ public class Database {
         lista.add("CREATE TABLE Topics (topic_id INTEGER PRIMARY KEY NOT NULL, subject text NOT NULL, time date NOT NULL, category_id INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (category_id) REFERENCES Categories(cat_id), FOREIGN KEY (user) REFERENCES Users(user_id));");
         lista.add("CREATE TABLE Posts(post_id INTEGER PRIMARY KEY NOT NULL, message text NOT NULL, time date NOT NULL, topic INTEGER NOT NULL, user_id INTEGER NOT NULL, FOREIGN KEY (topic) REFERENCES Topics(topic_id), FOREIGN KEY (user_id) REFERENCES Users(user_id));");
 
-        lista.add("INSERT INTO \"Categories\" VALUES(1,'test','Troll training!');");
+        lista.add("INSERT INTO \"Categories\" VALUES(1,'LOL NOOB!','Trolls in Training');");
+        lista.add("INSERT INTO \"Categories\" VALUES(2,'Ronald Rump','Troll Rookies');");
+        lista.add("INSERT INTO \"Categories\" VALUES(3,'TRIGGERED','Troll Journeymen');");
+        lista.add("INSERT INTO \"Categories\" VALUES(4,'Chernoby kids','Troll Expert');");
         lista.add("INSERT INTO \"Users\" VALUES(1,'Admin','lol');");
         lista.add("INSERT INTO \"Topics\" VALUES(1,'TROLL-O-LOL','2004-08-19 18:51:06',1,1);");
         lista.add("INSERT INTO \"Posts\" VALUES(1,'hahahaha gg ez nubz lol','2017-02-27 21:54:33',1,1);");
