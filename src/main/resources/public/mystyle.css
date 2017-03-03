@@ -25,3 +25,24 @@ button {
     border: 2px solid #e7e7e7;
     color: white;
 }
+
+body {
+  padding: 20px;
+}
+
+main {
+  height: 60%;
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+main div {
+  width:70%;
+  padding: 20px;
+  overflow: auto;
+}

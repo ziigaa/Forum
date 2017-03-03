@@ -29,26 +29,45 @@
                 border: 2px solid #e7e7e7;
                 color: white;
             }
+
+            body {
+                padding: 20px;
+            }
+
+            main {
+                height: 60%;
+                width: 60%;
+                margin: 0 auto;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: auto;
+            }
+
+            main div {
+                width:70%;
+                padding: 20px;
+                overflow: auto;
+            }
         </style>
         <title>Troll's Paradise - Posts</title>
     </head>
 
-    <body style="background-color:#005B9A">
+    <body style="background-color:#005B9A"><main><div>
 
-        <form method="post" action="">
-            <pre>
+                <form method="post" action="">
+                    <pre>
         <ol>
             <li th:each="post : ${posts}">
                 <span th:text="${post.user.name}">user</span> posted @ <span th:text="${post.time}">time</span>
                 <span th:text="${post.message}">message</span>
             </li>
-        </ol>
-<form method ="post" action="">
-    <input type="text" id="posttext" name="posttext" autofocus="autofocus" /> <br /><br/>
-<button class="button norm" id="answer" value="answer" name="answer">Answer</button>
-<button class="button norm" id="logout" value="logout" name="logout">Logout</button>
-</form>
-            </pre>
-        </form>
+        </ol></pre></form>
+                <form method ="post" action="">
+                    <input type="text" id="posttext" name="posttext" autofocus="autofocus" />
+                    <button class="button norm" id="answer" value="answer" name="answer">Answer</button> <br /><br/>
+                    <button class="button norm" id="logout" value="logout" name="logout">Logout</button>
+                </form></div></main>
     </body>
 </html>
