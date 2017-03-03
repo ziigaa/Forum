@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Troll's Paradise - Categories</title>
-
+        
         <style>
             .button {
                 background-color: #00A1DF;
@@ -10,6 +10,7 @@
                 border-radius: 8px;
                 color: white;
                 padding: 16px 32px;
+                width: 50%;
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
@@ -34,17 +35,18 @@
         </style>
     </head>
 
-    <body>
-
+    <body style="background-color:#005B9A">
+        <pre style="font-family:Goudy Old Style;">                  Troll's paradise</pre>
+        
         <form method="post" action="">
             <pre>
         <ol style="white-space:nowrap;">
-            Category/Description/Number of topics/Time of most recent post/ amount of topics
+            
             <pre>
                     </pre>
 
                     <li th:each="category : ${categories}">
-                        <button class="button norm" id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>       /<span th:text="${category.description}"></span>/<span th:text="${category.topMaara}">  </span><span th:text="${category.recentPost}"></span> <span th:text="${category.postMaara}"></span> </button>
+                        <button class="button norm" id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>       (<span th:text="${category.description}"></span>) | Number of topics: <span th:text="${category.topMaara}">):  </span> | Total posts: <span th:text="${category.postMaara}"></span> | Last post @ <span th:text="${category.recentPost}"></span> </button>
                     </li>
                 </ol>
             </pre>
