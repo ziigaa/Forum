@@ -12,6 +12,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Spark;
 import static spark.Spark.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
@@ -26,6 +27,8 @@ public class Main {
         if(System.getenv("PORT") != null) {
             port(Integer.valueOf(System.getenv("PORT")));
         }
+        
+        Spark.staticFileLocation("/public");
         
         Database database = new Database("jdbc:sqlite:./lol2.db");
         database.init();

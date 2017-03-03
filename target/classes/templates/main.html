@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
+        <link rel="stylesheet" type="text/css" href="mystyle.css" />
         <title>Welcome!</title>
     </head>
 
@@ -9,8 +10,8 @@
             <h1>WELCOME</h1><h1 th:text="${name}">The noob</h1><h1>YOU NOOB</h1>
             <br />
             <form method="post" action="">
-                <button id="catz" value="catz" name="catz">Categories</button>
-                <button id="logout" value="logout" name="logout">Logout</button>
+                <button class="button norm" id="catz" value="catz" name="catz">Categories</button>
+                <button class="button norm" id="logout" value="logout" name="logout">Logout</button>
             </form>
         </center>
     </body>
