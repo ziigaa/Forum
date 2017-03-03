@@ -23,12 +23,17 @@ public class Main {
     
     public static void main(String[] args) throws Exception {
         
+        if(System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+        
         Database database = new Database("jdbc:sqlite:./lol2.db");
         database.init();
         UserDao userDao = new UserDao(database);
         CategoryDao catDao = new CategoryDao(database);
         TopicDao toDao = new TopicDao(database);
         PostDao poDao = new PostDao(database);
+        
         ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
         
         post("/", new Route() {
