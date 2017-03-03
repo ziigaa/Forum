@@ -122,5 +122,45 @@ public class TopicDao {
         Integer userId = user.getId();
         database.update("INSERT INTO \"Topics\" VALUES(null,'" + subject + "', datetime('now'),'" + catId + "','+" + userId + "');");
     }
+    public Integer countAmountOfPostsInTopic(Integer key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Posts WHERE topic_id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+
+        int o = 0;
+        while (rs.next()) {
+            o++;
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
+    }
+    public String getRecentPostDateFromTOpic(int topicId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM posts WHERE post_id = (SELECT MAX(post_id) FROM posts WHERE topic_id = ?);");
+        stmt.setObject(1, topicId);
+
+        ResultSet rs = stmt.executeQuery();
+
+        String o = "No posts";
+        while (rs.next()) {
+            o = rs.getString("time");
+        }
+
+        
+
+     //   String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(o);
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
+    }
     
 }

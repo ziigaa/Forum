@@ -73,5 +73,23 @@ public class CategoryDao {
     public void delete(Integer key) throws SQLException {
         database.update("DELETE FROM Categories WHERE cat_id = ?", key);
     }
+    public Integer countAmountOfTopicsInCat(Integer key) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Topics WHERE category_id = ?");
+        stmt.setObject(1, key);
+
+        ResultSet rs = stmt.executeQuery();
+        List<Topic> topics = new ArrayList<>();
+        int o = 0;
+        while (rs.next()) {
+            o++;            
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
+    }
 
 }

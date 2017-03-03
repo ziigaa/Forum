@@ -8,10 +8,15 @@
 
         <form method="post" action="">
             <pre>
-        <ol>
+        <ol style="white-space:nowrap;">
+            Category/Description/Number of topics
+            <pre>
+            </pre>
+            
             <li th:each="category : ${categories}">
-                <button id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>   (<span th:text="${category.description}"></span>)</button>
-                <h1>WELCOME</h1><h1 th:text="${name}">The noob</h1><h1>YOU NOOB</h1>
+                <button id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>       /<span th:text="${category.description}"></span>/<span th:text="${category.topMaara}"></span></button>
+                
+                 
             </li>
         </ol>
             </pre>

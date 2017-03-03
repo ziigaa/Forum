@@ -10,7 +10,8 @@ package tikape.forum;
  * @author Joonas
  */
 public class Topic {
-
+    private String recentPost;
+    private int postMaara;
     private int id;
     private String subject;
     private String dateTime;
@@ -23,10 +24,28 @@ public class Topic {
         this.dateTime = dateTime;
         this.user = user;
         this.category = category;
+        this.postMaara = 0;
+        this.recentPost = "No post";
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public void setRecentPost(String recentPost) {
+        this.recentPost = recentPost;
+    }
+
+    public void setPostMaara(int postMaara) {
+        this.postMaara = postMaara;
+    }
+
+    public String getRecentPost() {
+        return recentPost;
+    }
+
+    public int getPostMaara() {
+        return postMaara;
     }
 
     public void setId(Integer id) {

@@ -153,7 +153,10 @@ public class Main {
                     
                     list.addAll(catDao.findAll());
                     //muutos
-                    
+                    for (Category cat: list) {
+                        cat.setTopMaara(catDao.countAmountOfTopicsInCat(cat.getId()));
+                        System.out.println(cat.getTopMaara());
+                    }
                     //muustos
 
                     HashMap<String, Object> catz = new HashMap<>();
@@ -197,6 +200,11 @@ public class Main {
                 if (!name.equals("") || name != null) {
                     List<Topic> list = new ArrayList<>();
                     list.addAll(toDao.findAllFromCategory(Integer.parseInt(req.params(":cid"))));
+                    for (Topic top: list) {
+                        top.setPostMaara(toDao.countAmountOfPostsInTopic(top.getId()));
+                        
+                        top.setRecentPost(toDao.getRecentPostDateFromTOpic(top.getId()));
+                    }
                     HashMap<String, Object> topz = new HashMap<>();
                     topz.put("topics", list);
                     return new ModelAndView(topz, "topics");

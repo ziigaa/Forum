@@ -10,7 +10,7 @@
             <pre>
         <ol>
             <li th:each="topic : ${topics}">
-                <button id="topic" th:value="${topic.id}" name="topic"><span th:text="${topic.subject}"></span></button>
+                <button id="topic" th:value="${topic.id}" name="topic"><span th:text="${topic.subject}"></span> (<span th:text="${topic.postMaara}"></span> posts)(<span th:text="${topic.recentPost}"></span>)</button>
             </li>
         </ol>
 <form method ="post" action="">

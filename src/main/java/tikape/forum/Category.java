@@ -10,7 +10,7 @@ package tikape.forum;
  * @author Joonas
  */
 public class Category {
-
+    private int topMaara;
     private int id;
     private String name;
     private String description;
@@ -19,6 +19,15 @@ public class Category {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.topMaara = 0;
+    }
+
+    public int getTopMaara() {
+        return topMaara;
+    }
+
+    public void setTopMaara(int topMaara) {
+        this.topMaara = topMaara;
     }
 
     public Integer getId() {
