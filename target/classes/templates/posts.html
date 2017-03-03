@@ -50,20 +50,33 @@
                 padding: 20px;
                 overflow: auto;
             }
+            .asd {
+                font-family: Goudy Old Style;
+                font-size: 72px;
+                color: yellow;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+                
+            }
+            #elementStyle li {
+                padding: 12px 45px;
+                margin-bottom: 6px;
+                border-top: 2px solid red;
+                border-bottom: 1px solid gray;
+            }
         </style>
         <title>Troll's Paradise - Posts</title>
     </head>
 
     <body style="background-color:#005B9A"><main><div>
-
+                <h1 class="asd"> Troll's Paradise </h1>
                 <form method="post" action="">
-                    <pre>
-        <ol>
+                    
+        <ol id="elementStyle">
             <li th:each="post : ${posts}">
                 <span th:text="${post.user.name}">user</span> posted @ <span th:text="${post.time}">time</span>
                 <span th:text="${post.message}">message</span>
             </li>
-        </ol></pre></form>
+        </ol></form>
                 <form method ="post" action="">
                     <input type="text" id="posttext" name="posttext" autofocus="autofocus" />
                     <button class="button norm" id="answer" value="answer" name="answer">Answer</button> <br /><br/>
