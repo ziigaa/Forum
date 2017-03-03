@@ -156,6 +156,12 @@ public class Main {
                     for (Category cat: list) {
                         cat.setTopMaara(catDao.countAmountOfTopicsInCat(cat.getId()));
                         System.out.println(cat.getTopMaara());
+                        
+                        //täällä!
+                        
+                        cat.setRecentPost(catDao.getRecentPostDateFromCategory(cat.getId()));
+                        cat.setPostMaara(catDao.countAllWihinCat(cat.getId()));
+                    
                     }
                     //muustos
 

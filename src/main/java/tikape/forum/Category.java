@@ -10,6 +10,8 @@ package tikape.forum;
  * @author Joonas
  */
 public class Category {
+    private int postMaara;
+    private String recentPost;
     private int topMaara;
     private int id;
     private String name;
@@ -20,6 +22,23 @@ public class Category {
         this.name = name;
         this.description = description;
         this.topMaara = 0;
+        this.recentPost = "";
+    }
+
+    public void setPostMaara(int postMaara) {
+        this.postMaara = postMaara;
+    }
+
+    public int getPostMaara() {
+        return postMaara;
+    }
+
+    public void setRecentPost(String recentPost) {
+        this.recentPost = recentPost;
+    }
+
+    public String getRecentPost() {
+        return recentPost;
     }
 
     public int getTopMaara() {

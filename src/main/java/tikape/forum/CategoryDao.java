@@ -91,5 +91,46 @@ public class CategoryDao {
 
         return o;
     }
+    public String getRecentPostDateFromCategory(int catId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT MAX(time) FROM (SELECT * FROM posts, topics WHERE category_id = ? AND Topics.topic_id = posts.topic_id);");
+        stmt.setObject(1, catId);
+
+        ResultSet rs = stmt.executeQuery();
+
+        String o = "No posts";
+        while (rs.next()) {
+            o = rs.getString("MAX(time)");
+        }
+
+        
+
+     //   String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(o);
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
+    }
+    public Integer countAllWihinCat(int catId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("select post_id from posts, topics where category_id = ? AND Topics.topic_id = posts.topic_id;");
+        stmt.setObject(1, catId);
+        ResultSet rs = stmt.executeQuery();
+        List<Integer> posts = new ArrayList<>();
+        while (rs.next()) {
+            Integer id = rs.getInt("post_id");
+            
+
+            posts.add(id);
+        }
+        int o = posts.size();
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return o;
+    }
 
 }

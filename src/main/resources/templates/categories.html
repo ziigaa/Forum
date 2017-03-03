@@ -9,12 +9,12 @@
         <form method="post" action="">
             <pre>
         <ol style="white-space:nowrap;">
-            Category/Description/Number of topics
+            Category/Description/Number of topics/Time of most recent post/ amount of topics
             <pre>
             </pre>
             
             <li th:each="category : ${categories}">
-                <button id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>       /<span th:text="${category.description}"></span>/<span th:text="${category.topMaara}"></span></button>
+                <button id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>       /<span th:text="${category.description}"></span>/<span th:text="${category.topMaara}">  </span><span th:text="${category.recentPost}"></span> <span th:text="${category.postMaara}"></span> </button>
                 
                  
             </li>
