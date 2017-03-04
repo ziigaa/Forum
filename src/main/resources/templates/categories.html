@@ -3,32 +3,18 @@
     <head>
         <link rel="stylesheet" type="text/css" href="mystyle.css" />
         <title>Troll's Paradise - Categories</title>
-        <style>
-            .asd {
-            font-family: Goudy Old Style;
-            font-size: 72px;
-            color: yellow;
-            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-
-            }
-        </style>
     </head>
-
     <body style="background-color:#005B9A"><main><div>
-        <h1 class="asd"> Troll's Paradise </h1>
-        
-        <form method="post" action="">
-            
-        <ol style="white-space:nowrap;">
-            
-            
-
-                    <li th:each="category : ${categories}">
-                        <button class="button norm" id="category" th:value="${category.id}" name="category" action="topic"><span th:text="${category.name}"></span>       (<span th:text="${category.description}"></span>) | Number of topics: <span th:text="${category.topMaara}">):  </span> | Total posts: <span th:text="${category.postMaara}"></span> | Last post @ <span th:text="${category.recentPost}"></span> </button>
-                    </li>
-                </ol>
-            
-            <button class="button norm" id="logout" value="logout" name="logout">Logout</button>
-        </form></div></main>
+                <h1 class="blackborder"> Troll's Paradise </h1>
+                <form method="post" action="">
+                    <ol style="white-space:nowrap;">
+                        <li th:each="category : ${categories}">
+                            <button class="button norm" id="category" th:value="${category.id}" name="category"><span th:text="${category.name}"></span>       (<span th:text="${category.description}"></span>) | Number of topics: <span th:text="${category.topMaara}">):  </span> | Total posts: <span th:text="${category.postMaara}"></span> | Last post @ <span th:text="${category.recentPost}"></span> </button>
+                        </li>
+                    </ol>
+                    <button class="button norm" id="logout" value="logout" name="logout">Logout</button>
+                </form>
+            </div>
+        </main>
     </body>
 </html>

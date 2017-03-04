@@ -50,31 +50,33 @@
                 padding: 20px;
                 overflow: auto;
             }
-            .asd {
-            font-family: Goudy Old Style;
-            font-size: 72px;
-            color: yellow;
-            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 
+            .blackborder {
+                font-family: Goudy Old Style;
+                font-size: 72px;
+                color: yellow;
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
             }
+
         </style>
         <title>Troll's Paradise - Topics</title>
     </head>
 
     <body style="background-color:#005B9A"><main><div>
-                <h1 class="asd"> Troll's Paradise </h1>
+                <h1 class="blackborder"> Troll's Paradise </h1>
                 <form method="post" action="">
-                    
-        <ol style="white-space:nowrap;">
-            <li th:each="topic : ${topics}">
-                <button class="button norm" id="topic" th:value="${topic.id}" name="topic"><span th:text="${topic.subject}"></span> (<span th:text="${topic.postMaara}"></span> posts)(<span th:text="${topic.recentPost}"></span>)</button>
-            </li>
-        </ol>
-                    </form>
+                    <ol style="white-space:nowrap;">
+                        <li th:each="topic : ${topics}">
+                            <button class="button norm" id="topic" th:value="${topic.id}" name="topic"><span th:text="${topic.subject}"></span> (<span th:text="${topic.postMaara}"></span> posts)(<span th:text="${topic.recentPost}"></span>)</button>
+                        </li>
+                    </ol>
+                </form>
                 <form method ="post" action="">
                     <input type="text" id="topictext" name="topictext" autofocus="autofocus" />
                     <button class="button norm" id="newtopic" value="newtopic" name="newtopic">New Topic</button> <br /><br/>
                     <button class="button norm" id="logout" value="logout" name="logout">Logout</button>
-                </form></div></main>
+                </form>
+            </div>
+        </main>
     </body>
 </html>

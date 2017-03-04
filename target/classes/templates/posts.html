@@ -50,37 +50,44 @@
                 padding: 20px;
                 overflow: auto;
             }
-            .asd {
+            
+            .blackborder {
                 font-family: Goudy Old Style;
                 font-size: 72px;
                 color: yellow;
                 text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-                
+
             }
+            
             #elementStyle li {
                 padding: 12px 45px;
-                margin-bottom: 6px;
-                border-top: 2px solid red;
+                margin-bottom: 12px;
+                border-top: 1px solid gray;
                 border-bottom: 1px solid gray;
+                border-right: 1px solid gray;
+                border-left: 1px solid gray;
+                border-radius: 8px;
+                overflow-wrap: break-word;
             }
         </style>
         <title>Troll's Paradise - Posts</title>
     </head>
 
     <body style="background-color:#005B9A"><main><div>
-                <h1 class="asd"> Troll's Paradise </h1>
+                <h1 class="blackborder"> Troll's Paradise </h1>
                 <form method="post" action="">
-                    
-        <ol id="elementStyle">
-            <li th:each="post : ${posts}">
-                <span th:text="${post.user.name}">user</span> posted @ <span th:text="${post.time}">time</span>
-                <span th:text="${post.message}">message</span>
-            </li>
-        </ol></form>
+                    <ol id="elementStyle">
+                        <li th:each="post : ${posts}">
+                            <span th:text="${post.user.name}">user</span> posted @ <span th:text="${post.time}">time</span><br /><br />
+                            <p style="margin-left: 50px;"><span th:text="${post.message}">message</span></p>
+                        </li>
+                    </ol></form>
                 <form method ="post" action="">
                     <input type="text" id="posttext" name="posttext" autofocus="autofocus" />
                     <button class="button norm" id="answer" value="answer" name="answer">Answer</button> <br /><br/>
                     <button class="button norm" id="logout" value="logout" name="logout">Logout</button>
-                </form></div></main>
+                </form>
+            </div>
+        </main>
     </body>
 </html>
