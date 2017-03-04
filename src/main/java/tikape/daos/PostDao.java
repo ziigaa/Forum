@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tikape.forum;
+package tikape.daos;
 
+import tikape.objects.Post;
+import tikape.objects.Topic;
+import tikape.objects.Database;
+import tikape.objects.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

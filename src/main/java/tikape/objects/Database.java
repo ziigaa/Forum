@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tikape.forum;
+package tikape.objects;
 
 import java.sql.*;
 import java.util.ArrayList;

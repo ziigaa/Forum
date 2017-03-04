@@ -50,7 +50,7 @@
                 padding: 20px;
                 overflow: auto;
             }
-            
+
             .blackborder {
                 font-family: Goudy Old Style;
                 font-size: 72px;
@@ -58,7 +58,7 @@
                 text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 
             }
-            
+
             #elementStyle li {
                 padding: 12px 45px;
                 margin-bottom: 12px;
@@ -83,8 +83,10 @@
                         </li>
                     </ol></form>
                 <form method ="post" action="">
-                    <input type="text" id="posttext" name="posttext" autofocus="autofocus" />
+                    <input type="text" id="posttext" required="true" name="posttext" autofocus="autofocus" />
                     <button class="button norm" id="answer" value="answer" name="answer">Answer</button> <br /><br/>
+                </form>
+                <form method="post" action="">
                     <button class="button norm" id="logout" value="logout" name="logout">Logout</button>
                 </form>
             </div>
